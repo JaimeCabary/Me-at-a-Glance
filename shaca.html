@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shalom Chidi-Azuwike | Software Engineer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #1C2526;
+      color: #EDEDED;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+    .ravenclaw-bg {
+      background: linear-gradient(to bottom, rgba(28, 37, 38, 0.8), rgba(45, 55, 72, 0.8)), url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&q=80&w=1920');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    .ravenclaw-bg img{
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .orange-streak {
+      position: absolute;
+      width: 100px;
+      height: 4px;
+      background: #F97316;
+      opacity: 0.5;
+      transform: rotate(45deg);
+    }
+    .section-animate {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .section-animate.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .text-shadow {
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    .skill-bar {
+      position: relative;
+      transition: box-shadow 0.3s ease;
+    }
+    .skill-bar::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%) scale(0);
+      width: 10px;
+      height: 10px;
+      background: #F97316;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #F97316, 0 0 20px #F97316;
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .skill-bar.active::after {
+      transform: translateY(-50%) scale(1);
+      opacity: 1;
+    }
+    .skill-bar.glow {
+      box-shadow: 0 0 8px #F97316, 0 0 12px rgba(249, 115, 22, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useEffect } = React;
+
+    const Navbar = () => (
+      <header className="fixed top-0 left-0 w-full bg-[#1C2526]/80 backdrop-blur-md z-50">
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+          <h1 className="text-2xl font-bold text-[#F97316] font-['Lora']">Shalom</h1>
+          <div className="hidden md:flex space-x-8">
+            {['Home', 'About', 'Education', 'Skills', 'Projects', 'Contact'].map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className="text-[#EDEDED] hover:text-[#F97316] text-lg font-medium transition-colors duration-300"
+              >
+                {item}
+              </a>
+            ))}
+          </div>
+          <div className="md:hidden">
+            <button id="menu-toggle" className="text-[#F97316] text-2xl">☰</button>
+          </div>
+        </nav>
+      </header>
+    );
+
+    const Hero = () => (
+      <section id="home" className="ravenclaw-bg h-screen flex items-center justify-center relative">
+        <div className="orange-streak top-10 left-20"></div>
+        <div className="orange-streak bottom-20 right-40"></div>
+        <div className="text-center max-w-3xl mx-auto px-4">
+          <h1 className="text-5xl md:text-7xl font-bold font-['Lora'] text-[#F3F4F6] mb-4 text-shadow">
+            Shalom Chidi-Azuwike
+          </h1>
+          <h3 className="text-2xl md:text-3xl text-[#F97316] mb-6 text-shadow">
+            Software Engineer & Storyteller
+          </h3>
+          <p className="text-lg text-[#F3F4F6] mb-8 max-w-2xl mx-auto text-shadow">
+            A 20-year-old software engineering student at FUTO with a 4.86 CGPA, passionate about coding, storytelling, and robotics. Author of <i>The Billionaire’s Son</i> and Microsoft Learn Student Ambassador.
+          </p>
+          <div className="flex justify-center space-x-4">
+            <a
+              href="#contact"
+              className="bg-[#F97316] text-[#1C2526] px-6 py-3 rounded-lg font-semibold hover:bg-[#F3F4F6] transition-colors duration-300"
+            >
+              Hire Me
+            </a>
+            <a
+              href="#contact"
+              className="border-2 border-[#F97316] text-[#F97316] px-6 py-3 rounded-lg font-semibold hover:bg-[#F97316] hover:text-[#1C2526] transition-colors duration-300"
+            >
+              Let’s Talk
+            </a>
+          </div>
+        </div>
+      </section>
+    );
+
+        const About = () => (
+    <section id="about" className="py-20 bg-[#2D3748] section-animate">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 className="text-4xl font-bold font-['Lora'] text-[#F97316] mb-8">About Me</h2>
+        <div className="flex flex-col md:flex-row items-center gap-8">
+            <img
+            src="cabondo.png"
+            alt="Shalom Chidi-Azuwike"
+            className="w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-[#F97316] object-cover"
+            />
+            <div>
+            {/* Rest of the content remains unchanged */}
+            <p className="text-lg text-[#EDEDED] mb-6">
+               Hi, I'm Shalom Chidi-Azuwike, a 20-year-old software engineering student at FUTO with a CGPA of 4.86. I am passionate about innovation, storytelling, and making a positive impact in my community. My love for reading, which began at age four, ignited my journey as a writer. I've authored books like The Billionaire's Son and Caught in Between under the pseudonym Jaime Cabary. I've developed three websites, including my portfolio, and designed an app called Bizvest. I'm a Microsoft Learn Student Ambassador and Samsung Student Ambassador, advocating for digital skills and innovation. My goal is to create robotic works of art to better humanity. Inspired by visionaries like Elon Musk, I aspire to visit Mars and contribute to making humanity a multiplanetary species.
+            </p>
+            <a
+                href="#contact"
+                className="bg-[#F97316] text-[#1C2526] px-6 py-3 rounded-lg font-semibold hover:bg-[#EDEDED] transition-colors duration-300"
+            >
+                Contact Me
+            </a>
+            </div>
+        </div>
+        </div>
+    </section>
+    );
+
+    const Education = () => (
+      <section id="education" className="py-20 bg-[#1C2526] section-animate">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold font-['Lora'] text-[#F97316] text-center mb-12">My Journey</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-2xl font-semibold text-[#EDEDED] mb-4">Education</h3>
+              <div className="relative pl-8 border-l-2 border-[#F97316]">
+                <div className="mb-8">
+                  <div className="absolute -left-4 w-4 h-4 bg-[#F97316] rounded-full"></div>
+                  <p className="text-[#F97316] font-semibold">2021 - Present</p>
+                  <h4 className="text-xl text-[#EDEDED]">B.Sc. Software Engineering, FUTO</h4>
+                  <p className="text-[#EDEDED]">CGPA: 4.86. Focused on coding and empowering women in tech.</p>
+                </div>
+                <div className="mb-8">
+                  <div className="absolute -left-4 w-4 h-4 bg-[#F97316] rounded-full"></div>
+                  <p className="text-[#F97316] font-semibold">2015 - 2021</p>
+                  <h4 className="text-xl text-[#EDEDED]">Secondary Education, FGGC Owerri</h4>
+                  <p className="text-[#EDEDED]">Commonwealth Club member, representing New Zealand.</p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <h3 className="text-2xl font-semibold text-[#EDEDED] mb-4">Experience</h3>
+              <div className="relative pl-8 border-l-2 border-[#F97316]">
+                <div className="mb-8">
+                  <div className="absolute -left-4 w-4 h-4 bg-[#F97316] rounded-full"></div>
+                  <p className="text-[#F97316] font-semibold">March 2025 – Present</p>
+                  <h4 className="text-xl text-[#EDEDED]">Field Intern – Renewable Energy & Construction, Eauxwell Nigeria Limited</h4>
+                  <p className="text-[#EDEDED]">Contributing to renewable energy projects at STEM Plot 5, FUTO, focusing on sustainable solutions.</p>
+                </div>
+                <div className="mb-8">
+                  <div className="absolute -left-4 w-4 h-4 bg-[#F97316] rounded-full"></div>
+                  <p className="text-[#F97316] font-semibold">February 2025 – Present</p>
+                  <h4 className="text-xl text-[#EDEDED]">Secretary, IEEE FUTO Student Branch SIGHT Group</h4>
+                  <p className="text-[#EDEDED]">Organizing events and promoting humanitarian technology initiatives in a hybrid role.</p>
+                </div>
+                <div className="mb-8">
+                  <div className="absolute -left-4 w-4 h-4 bg-[#F97316] rounded-full"></div>
+                  <p className="text-[#F97316] font-semibold">November 2024 – Present</p>
+                  <h4 className="text-xl text-[#EDEDED]">Student Brand Ambassador, Samsung Mobile</h4>
+                  <p className="text-[#EDEDED]">Advocating for Samsung’s mobile technologies in a hybrid capacity.</p>
+                </div>
+                <div className="mb-8">
+                  <div className="absolute -left-4 w-4 h-4 bg-[#F97316] rounded-full"></div>
+                  <p className="text-[#F97316] font-semibold">2023 - Present</p>
+                  <h4 className="text-xl text-[#EDEDED]">Microsoft Learn Student Ambassador</h4>
+                  <p className="text-[#EDEDED]">Promoting Microsoft technologies and digital skills.</p>
+                </div>
+                <div className="mb-8">
+                  <div className="absolute -left-4 w-4 h-4 bg-[#F97316] rounded-full"></div>
+                  <p className="text-[#F97316] font-semibold">2019 - 2020</p>
+                  <h4 className="text-xl text-[#EDEDED]">CEO, Kabary Software</h4>
+                  <p className="text-[#EDEDED]">Led software development and AI projects.</p>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+
+    const Skills = () => {
+      useEffect(() => {
+        gsap.registerPlugin(ScrollTrigger);
+        const bars = gsap.utils.toArray('.skill-bar');
+        bars.forEach((bar, index) => {
+          gsap.to(bar, {
+            width: bar.dataset.width,
+            duration: 2,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: '#skills',
+              start: 'top 80%',
+              toggleActions: 'play none none none',
+            },
+            onStart: () => {
+              bar.classList.add('glow');
+            },
+            onComplete: () => {
+              bar.classList.add('active');
+              setTimeout(() => bar.classList.remove('glow'), 500);
+            },
+            delay: index * 0.2, // Stagger each bar by 0.2s
+          });
+        });
+      }, []);
+
+      return (
+        <section id="skills" className="py-20 bg-[#2D3748] section-animate">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-4xl font-bold font-['Lora'] text-[#F97316] text-center mb-12">My Skills</h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-2xl font-semibold text-[#EDEDED] mb-4">Coding Skills</h3>
+                {[
+                  { name: 'Python', width: '95%' },
+                  { name: 'HTML', width: '90%' },
+                  { name: 'CSS', width: '70%' },
+                  { name: 'JavaScript', width: '34%' },
+                ].map((skill) => (
+                  <div key={skill.name} className="mb-4">
+                    <div className="flex justify-between text-[#EDEDED] mb-2">
+                      <span>{skill.name}</span>
+                      <span>{skill.width}</span>
+                    </div>
+                    <div className="w-full bg-[#1C2526] rounded h-3">
+                      <div
+                        className="skill-bar bg-[#F97316] h-full rounded"
+                        data-width={skill.width}
+                        style={{ width: '0%' }}
+                        aria-label={`${skill.name} skill level: ${skill.width}`}
+                      ></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div>
+                <h3 className="text-2xl font-semibold text-[#EDEDED] mb-4">Professional Skills</h3>
+                {[
+                  { name: 'Content Writing', width: '95%' },
+                  { name: 'Graphics', width: '85%' },
+                  { name: 'AI & Data Science', width: '67%' },
+                  { name: 'Web Development', width: '60%' },
+                ].map((skill) => (
+                  <div key={skill.name} className="mb-4">
+                    <div className="flex justify-between text-[#EDEDED] mb-2">
+                      <span>{skill.name}</span>
+                      <span>{skill.width}</span>
+                    </div>
+                    <div className="w-full bg-[#1C2526] rounded h-3">
+                      <div
+                        className="skill-bar bg-[#F97316] h-full rounded"
+                        data-width={skill.width}
+                        style={{ width: '0%' }}
+                        aria-label={`${skill.name} skill level: ${skill.width}`}
+                      ></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    const Projects = () => (
+      <section id="projects" className="py-20 bg-[#1C2526] section-animate">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold font-['Lora'] text-[#F97316] text-center mb-12">My Projects</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                title: 'Bizvest App',
+                description: 'A mobile app designed to empower small businesses with financial tools.',
+                image: 'https://images.unsplash.com/photo-1516321310763-1b9f93b78a1b?auto=format&fit=crop&q=80&w=300',
+              },
+              {
+                title: 'Sasha’s Sashaydes',
+                description: 'A personal blog sharing my journey in tech, renewable energy, and creative writing.',
+                image: 'https://images.unsplash.com/photo-1516321310763-1b9f93b78a1b?auto=format&fit=crop&q=80&w=300',
+              },
+              {
+                title: 'Portfolio Website',
+                description: 'This very website, showcasing my skills and journey.',
+                image: 'https://images.unsplash.com/photo-1516321310763-1b9f93b78a1b?auto=format&fit=crop&q=80&w=300',
+              },
+              {
+                title: 'Renewable Energy Garden',
+                description: 'Contributing to a sustainable energy project with Eauxwell Nigeria at FUTO.',
+                image: 'https://images.unsplash.com/photo-1516321310763-1b9f93b78a1b?auto=format&fit=crop&q=80&w=300',
+              },
+              {
+                title: 'Janessa AI',
+                description: 'An AI project aimed at enhancing user interactions through natural language processing.',
+                image: 'https://images.unsplash.com/photo-1516321310763-1b9f93b78a1b?auto=format&fit=crop&q=80&w=300',
+              },
+            ].map((project) => (
+              <div
+                key={project.title}
+                className="bg-[#2D3748] rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-300"
+              >
+                <img src={project.image} alt={project.title} className="w-full h-48 object-cover" />
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold text-[#EDEDED] mb-2">{project.title}</h3>
+                  <p className="text-[#EDEDED] mb-4">{project.description}</p>
+                  <a href="#" className="text-[#F97316] font-semibold hover:underline">View Project</a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+    const Certifications = () => (
+      <section id="certifications" className="py-20 bg-[#2D3748] section-animate">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold font-['Lora'] text-[#F97316] text-center mb-12">Certifications & Memberships</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-2xl font-semibold text-[#EDEDED] mb-4">Certifications</h3>
+              <ul className="text-[#EDEDED] space-y-4">
+                <li>IEEE Women in Engineering Membership (Feb 2025 – Dec 2025)</li>
+                <li>Volunteer Secretary – IEEE (Feb 2025)</li>
+                <li>IEEE Membership Card (Jan 2025 – Dec 2025)</li>
+                <li>DSEP Web Development Course – CSAAE (May 2024)</li>
+                <li>IEEE Membership Certificate (May 2024)</li>
+                <li>Unilever Level-Up Entrepreneurship Skills Course (May 2024)</li>
+                <li>Introduction to Programming Using Python – Cisco Networking Academy (Mar 2024)</li>
+                <li>Get Connected – Cisco Networking Academy (Feb 2020)</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-2xl font-semibold text-[#EDEDED] mb-4">Memberships</h3>
+              <ul className="text-[#EDEDED] space-y-4">
+                <li>IEEE (Institute of Electrical and Electronics Engineers)</li>
+                <li>Rotaract Club</li>
+                <li>WAAW Foundation</li>
+                <li>Microsoft Learn Student Ambassadors (MLSA)</li>
+                <li>Google Developer Student Clubs (GDSC)</li>
+                <li>TEFEM Network</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+
+    const Contact = () => (
+      <section id="contact" className="py-20 bg-[#2D3748] section-animate">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold font-['Lora'] text-[#F97316] text-center mb-12">Contact Me</h2>
+          <form className="max-w-lg mx-auto">
+            <div className="grid md:grid-cols-2 gap-4 mb-4">
+              <input
+                type="text"
+                placeholder="Full Name"
+                className="w-full p-3 bg-[#1C2526] text-[#EDEDED] rounded-lg border-2 border-[#F97316] focus:outline-none focus:border-[#EDEDED]"
+              />
+              <input
+                type="email"
+                placeholder="Email Address"
+                className="w-full p-3 bg-[#1C2526] text-[#EDEDED] rounded-lg border-2 border-[#F97316] focus:outline-none focus:border-[#EDEDED]"
+              />
+            </div>
+            <div className="grid md:grid-cols-2 gap-4 mb-4">
+              <input
+                type="text"
+                placeholder="Mobile Number"
+                className="w-full p-3 bg-[#1C2526] text-[#EDEDED] rounded-lg border-2 border-[#F97316] focus:outline-none focus:border-[#EDEDED]"
+              />
+              <input
+                type="text"
+                placeholder="Email Subject"
+                className="w-full p-3 bg-[#1C2526] text-[#EDEDED] rounded-lg border-2 border-[#F97316] focus:outline-none focus:border-[#EDEDED]"
+              />
+            </div>
+            <textarea
+              placeholder="Your Message"
+              className="w-full p-3 bg-[#1C2526] text-[#EDEDED] rounded-lg border-2 border-[#F97316] focus:outline-none focus:border-[#EDEDED] h-32 resize-none mb-4"
+            ></textarea>
+            <button
+              type="submit"
+              className="bg-[#F97316] text-[#1C2526] px-6 py-3 rounded-lg font-semibold hover:bg-[#EDEDED] transition-colors duration-300 w-full"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
+      </section>
+    );
+
+    const Footer = () => (
+      <footer className="py-6 bg-[#1C2526] text-center section-animate">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-center space-x-6 mb-4">
+            <a href="https://linkedin.com/in/shalom-chidi-azuwike-752b47321" className="text-[#F97316] hover:text-[#EDEDED]">
+              <i className="fab fa-linkedin text-2xl"></i>
+            </a>
+            <a href="https://x.com/JaimeCabary" className="text-[#F97316] hover:text-[#EDEDED]">
+              <i className="fab fa-twitter text-2xl"></i>
+            </a>
+            <a href="https://github.com" className="text-[#F97316] hover:text-[#EDEDED]">
+              <i className="fab fa-github text-2xl"></i>
+            </a>
+          </div>
+          <p className="text-[#EDEDED]">
+            © 2025 Shalom Chidi-Azuwike. All Rights Reserved.
+          </p>
+        </div>
+      </footer>
+    );
+
+    const App = () => {
+      useEffect(() => {
+        const toggleMenu = () => {
+          const menu = document.querySelector('#mobile-menu');
+          menu.classList.toggle('hidden');
+        };
+        document.querySelector('#menu-toggle').addEventListener('click', toggleMenu);
+
+        const handleScroll = () => {
+          document.querySelectorAll('.section-animate').forEach((section) => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top < window.innerHeight * 0.8) {
+              section.classList.add('visible');
+            }
+          });
+        };
+        window.addEventListener('scroll', handleScroll);
+        handleScroll();
+
+        return () => {
+          document.querySelector('#menu-toggle').removeEventListener('click', toggleMenu);
+          window.removeEventListener('scroll', handleScroll);
+        };
+      }, []);
+
+      return (
+        <div>
+          <Navbar />
+          <div id="mobile-menu" className="hidden md:hidden bg-[#1C2526] px-4 py-2">
+            {['Home', 'About', 'Education', 'Skills', 'Projects', 'Certifications', 'Contact'].map((item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className="block text-[#EDEDED] hover:text-[#F97316] py-2 text-lg font-medium"
+              >
+                {item}
+              </a>
+            ))}
+          </div>
+          <Hero />
+          <About />
+          <Experience />
+          <Skills />
+          <Projects />
+          <Certifications />
+          <Contact />
+          <Footer />
+        </div>
+      );
+    };
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>
