@@ -11,6 +11,7 @@
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <style>
     body {
       background: #1C2526;
@@ -86,7 +87,7 @@
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold text-[#F97316] font-['Lora']">Shalom</h1>
           <div className="hidden md:flex space-x-8">
-            {['Home', 'About', 'Education', 'Skills', 'Projects', 'Contact'].map((item) => (
+            {['Home', 'About', 'Education', 'Skills', 'Projects', 'Certifications', 'Contact'].map((item) => (
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
@@ -135,31 +136,30 @@
       </section>
     );
 
-        const About = () => (
-    <section id="about" className="py-20 bg-[#2D3748] section-animate">
+    const About = () => (
+      <section id="about" className="py-20 bg-[#2D3748] section-animate">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-4xl font-bold font-['Lora'] text-[#F97316] mb-8">About Me</h2>
-        <div className="flex flex-col md:flex-row items-center gap-8">
+          <h2 className="text-4xl font-bold font-['Lora'] text-[#F97316] mb-8">About Me</h2>
+          <div className="flex flex-col md:flex-row items-center gap-8">
             <img
-            src="cabondo.png"
-            alt="Shalom Chidi-Azuwike"
-            className="w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-[#F97316] object-cover"
+              src="https://via.placeholder.com/320" // Replace with "./cabondo.png" or GitHub URL after upload
+              alt="Shalom Chidi-Azuwike"
+              className="w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-[#F97316] object-cover"
             />
             <div>
-            {/* Rest of the content remains unchanged */}
-            <p className="text-lg text-[#EDEDED] mb-6">
-               Hi, I'm Shalom Chidi-Azuwike, a 20-year-old software engineering student at FUTO with a CGPA of 4.86. I am passionate about innovation, storytelling, and making a positive impact in my community. My love for reading, which began at age four, ignited my journey as a writer. I've authored books like The Billionaire's Son and Caught in Between under the pseudonym Jaime Cabary. I've developed three websites, including my portfolio, and designed an app called Bizvest. I'm a Microsoft Learn Student Ambassador and Samsung Student Ambassador, advocating for digital skills and innovation. My goal is to create robotic works of art to better humanity. Inspired by visionaries like Elon Musk, I aspire to visit Mars and contribute to making humanity a multiplanetary species.
-            </p>
-            <a
+              <p className="text-lg text-[#EDEDED] mb-6">
+                Hi, I'm Shalom Chidi-Azuwike, a 20-year-old software engineering student at FUTO with a CGPA of 4.86. I am passionate about innovation, storytelling, and making a positive impact in my community. My love for reading, which began at age four, ignited my journey as a writer. I've authored books like The Billionaire's Son and Caught in Between under the pseudonym Jaime Cabary. I've developed three websites, including my portfolio, and designed an app called Bizvest. I'm a Microsoft Learn Student Ambassador and Samsung Student Ambassador, advocating for digital skills and innovation. My goal is to create robotic works of art to better humanity. Inspired by visionaries like Elon Musk, I aspire to visit Mars and contribute to making humanity a multiplanetary species.
+              </p>
+              <a
                 href="#contact"
                 className="bg-[#F97316] text-[#1C2526] px-6 py-3 rounded-lg font-semibold hover:bg-[#EDEDED] transition-colors duration-300"
-            >
+              >
                 Contact Me
-            </a>
+              </a>
             </div>
+          </div>
         </div>
-        </div>
-    </section>
+      </section>
     );
 
     const Education = () => (
@@ -189,15 +189,15 @@
               <div className="relative pl-8 border-l-2 border-[#F97316]">
                 <div className="mb-8">
                   <div className="absolute -left-4 w-4 h-4 bg-[#F97316] rounded-full"></div>
-                  <p className="text-[#F97316] font-semibold">March 2025 – Present</p>
+                  <p className="text-[#F97316] font-semibold">March 2025 – May 2025</p>
                   <h4 className="text-xl text-[#EDEDED]">Field Intern – Renewable Energy & Construction, Eauxwell Nigeria Limited</h4>
-                  <p className="text-[#EDEDED]">Contributing to renewable energy projects at STEM Plot 5, FUTO, focusing on sustainable solutions.</p>
+                  <p className="text-[#EDEDED]">Contributed to renewable energy projects at STEM Plot 5, FUTO, focusing on sustainable solutions.</p>
                 </div>
                 <div className="mb-8">
                   <div className="absolute -left-4 w-4 h-4 bg-[#F97316] rounded-full"></div>
-                  <p className="text-[#F97316] font-semibold">February 2025 – Present</p>
+                  <p className="text-[#F97316] font-semibold">February 2025 – May 2025</p>
                   <h4 className="text-xl text-[#EDEDED]">Secretary, IEEE FUTO Student Branch SIGHT Group</h4>
-                  <p className="text-[#EDEDED]">Organizing events and promoting humanitarian technology initiatives in a hybrid role.</p>
+                  <p className="text-[#EDEDED]">Organized events and promoted humanitarian technology initiatives in a hybrid role.</p>
                 </div>
                 <div className="mb-8">
                   <div className="absolute -left-4 w-4 h-4 bg-[#F97316] rounded-full"></div>
@@ -217,7 +217,6 @@
                   <h4 className="text-xl text-[#EDEDED]">CEO, Kabary Software</h4>
                   <p className="text-[#EDEDED]">Led software development and AI projects.</p>
                 </div>
-                
               </div>
             </div>
           </div>
@@ -246,7 +245,7 @@
               bar.classList.add('active');
               setTimeout(() => bar.classList.remove('glow'), 500);
             },
-            delay: index * 0.2, // Stagger each bar by 0.2s
+            delay: index * 0.2,
           });
         });
       }, []);
@@ -319,7 +318,7 @@
               {
                 title: 'Bizvest App',
                 description: 'A mobile app designed to empower small businesses with financial tools.',
-                image: 'https://images.unsplash.com/photo-1516321310763-1b9f93b78a1b?auto=format&fit=crop&q=80&w=300',
+                image: 'https://images.unsplash.com/photo-1516321310763-1b9f93b78a1b?auto=format&fit=crop&q=80 wood=300',
               },
               {
                 title: 'Sasha’s Sashaydes',
@@ -358,6 +357,7 @@
         </div>
       </section>
     );
+
     const Certifications = () => (
       <section id="certifications" className="py-20 bg-[#2D3748] section-animate">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -498,7 +498,7 @@
           </div>
           <Hero />
           <About />
-          <Experience />
+          <Education />
           <Skills />
           <Projects />
           <Certifications />
